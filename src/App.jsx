@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import Teclado from "./pages/Teclado";
 import Login from "./pages/Login";
 import RutaProtegida from "./rutaProtegida/RutaProtegida";
+import RegistrarEstudiante from "./pages/RegistrarEstudiante";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -29,6 +30,7 @@ function App() {
         <Route path="/" element={<Header />}>
           <Route index element={<Teclado />} />
           <Route path="login" element={<Login handleLogin={handleLogin} />} />
+          <Route path="registrarestudiante" element={<RegistrarEstudiante />} />
         </Route>
         <Route
           path="/administrador"
