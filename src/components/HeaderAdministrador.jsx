@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 const HeaderAdministrador = () => {
   const navigate = useNavigate();
@@ -21,6 +21,12 @@ const HeaderAdministrador = () => {
             height="200"
             alt="logo fablab"
           />
+          <div class="flex justify-center mt-4 px-10">
+            <Link to="carrera"> <button class="text-white mx-2">Carreras</button></Link>
+            <Link to="laboratorio"><button class="text-white mx-2">Laboratorios</button></Link>
+            <Link to="reporte"> <button class="text-white mx-2">Reportes</button></Link>
+
+          </div>
 
           <button
             className="flex items-center px-4 py-2 rounded ml-auto"

@@ -11,6 +11,9 @@ import Teclado from "./pages/Teclado";
 import Login from "./pages/Login";
 import RutaProtegida from "./rutaProtegida/RutaProtegida";
 import RegistrarEstudiante from "./pages/RegistrarEstudiante";
+import Carrera from "./pages/Carrera";
+import Laboratorio from "./pages/Laboratorio";
+import Reporte from "./pages/Reporte";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -37,6 +40,10 @@ function App() {
           element={<RutaProtegida isAuthenticated={isAuthenticated} />}
         >
           <Route index element={<Teclado />} />
+          <Route path="carrera" element={<Carrera />}/>
+          <Route path="laboratorio" element={<Laboratorio />}/>
+          <Route path="reporte" element={<Reporte />}/>
+
         </Route>
       </Routes>
     </Router>
