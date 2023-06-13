@@ -10,7 +10,7 @@ const HeaderAdministrador = () => {
   };
   return (
     <>
-      <header>
+      <header className="fixed top-0 left-0 right-0 z-50">
         <nav
           className="relative flex w-full items-center justify-between  shadow-lg  dark:bg-gray-800 md:flex-wrap md:justify-start"
           data-te-navbar-ref
@@ -21,11 +21,18 @@ const HeaderAdministrador = () => {
             height="200"
             alt="logo fablab"
           />
-          <div class="flex justify-center mt-4 px-10">
-            <Link to="carrera"> <button class="text-white mx-2">Carreras</button></Link>
-            <Link to="laboratorio"><button class="text-white mx-2">Laboratorios</button></Link>
-            <Link to="reporte"> <button class="text-white mx-2">Reportes</button></Link>
-
+          <div className="flex justify-center mt-4 px-10">
+            <Link to="carrera">
+              {" "}
+              <button className="text-white mx-2">Carreras</button>
+            </Link>
+            <Link to="laboratorio">
+              <button className="text-white mx-2">Laboratorios</button>
+            </Link>
+            <Link to="reporte">
+              {" "}
+              <button className="text-white mx-2">Reportes</button>
+            </Link>
           </div>
 
           <button
@@ -50,7 +57,7 @@ const HeaderAdministrador = () => {
           </button>
         </nav>
       </header>
-      <main className="container">
+      <main className="container mt-24 z-40">
         <Outlet />
       </main>
     </>

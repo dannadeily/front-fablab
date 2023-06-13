@@ -1,84 +1,86 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import conexionAxios from "../axios/Axios";
+import AlertError from "../components/AlertError";
+import AlertSucces from "../components/AlertSucces";
 
 const RegistrarLaboratorio = () => {
+  const [image, setImage] = useState(null);
   const [name, setName] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [document, setDocument] = useState("");
-  const [idAcademyProgram, setIdAcademyProgram] = useState([]);
-  const [academyProgram, setAcademyProgram] = useState([]);
+  const [description, setDescription] = useState("");
   const [alertError, setAlertError] = useState({ error: false, message: "" });
   const [alertSucces, setAlertSucces] = useState({
     error: false,
     message: "",
   });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await conexionAxios.get("/academyProgram");
-        setAcademyProgram(response.data.message);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const handleImagenChange = (event) => {
+    const file = event.target.files[0];
+    setImage(file);
+  };
 
-    fetchData();
-  }, []);
+  const handleNombreChange = (event) => {
+    const value = event.target.value;
+    setName(value);
+  };
+
+  const handleDescripcionChange = (event) => {
+    const value = event.target.value;
+    setDescription(value);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // if (
-    //   name.trim() ||
-    //   lastname.trim() ||
-    //   email.trim() === "" ||
-    //   document.trim() ||
-    //   idAcademyProgram.trim()
-    // ) {
-    //   setAlertError({
-    //     error: true,
-    //     message: "Todos los campos son obligatorios",
-    //   });
-    //   setTimeout(() => setAlertError({ error: false, message: "" }), 5000); // limpiar la alerta después de 5 segundos
-    // }
-
-    try {
-      const res = await conexionAxios.post("/register", {
-        name,
-        lastname,
-        email,
-        document,
-        idAcademyProgram,
+    if (name.trim() === "" || description.trim() === "") {
+      setAlertError({
+        error: true,
+        message: "Todos los campos son obligatorios",
       });
+      setTimeout(() => setAlertError({ error: false, message: "" }), 5000); // limpiar la alerta después de 5 segundos
+    } else {
+      try {
+        const formData = new FormData();
+        formData.append("image", image);
+        formData.append("name", name);
+        formData.append("description", description);
 
-      if (res.status === 201) {
-        setAlertSucces({ error: true, message: res.data.message });
-        setTimeout(() => setAlertSucces({ error: false, message: "" }), 10000);
-        // Reiniciar los valores de los campos
-        setName("");
-        setLastname("");
-        setEmail("");
-        setDocument("");
+        const res = await conexionAxios.post("/laboratory/create", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        if (res.status === 201) {
+          setAlertSucces({ error: true, message: res.data.message });
+          setTimeout(
+            () => setAlertSucces({ error: false, message: "" }),
+            10000
+          );
+          // Reiniciar los valores de los campos
+          setImage(null);
+          setName("");
+          setDescription("");
+          window.location.reload(); // Recargar la página actual
+        }
+      } catch (error) {
+        // Manejar el error de la solicitud
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          setAlertError({ error: true, message: error.response.data.message });
+        }
+        setTimeout(() => setAlertError({ error: false, message: "" }), 10000);
       }
-    } catch (error) {
-      // Manejar el error de la solicitud
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        setAlertError({ error: true, message: error.response.data.message });
-      }
-      setTimeout(() => setAlertError({ error: false, message: "" }), 10000);
     }
   };
 
   return (
     <>
       <div className="md:w-1/2 lg:w-2/5 mx-5">
-        <form onSubmit={handleSubmit}>
-          <h1 className=" font-bold text-2xl text-center text-gray-900  ">
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <h1 className="font-bold text-2xl text-center text-gray-900">
             REGISTRAR LABORATORIO
           </h1>
 
@@ -89,102 +91,45 @@ const RegistrarLaboratorio = () => {
 
           <div className="my-5">
             <label
-              className="uppercase text-gray-600 block  font-bold"
-              htmlFor="nombre"
-              name="nombre"
-              type="text"
+              htmlFor="image"
+              className="uppercase text-gray-600 block font-bold"
             >
-              Nombres
+              Imagen
             </label>
+            <input type="file" id="image" onChange={handleImagenChange} />
+          </div>
 
+          <div className="my-5">
+            <label
+              className="uppercase text-gray-600 block font-bold"
+              htmlFor="nombre"
+            >
+              Nombre del laboratorio
+            </label>
             <input
               id="nombre"
               type="text"
               placeholder="nombres"
               className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={handleNombreChange}
             />
           </div>
           <div className="my-5">
             <label
-              className="uppercase text-gray-600 block  font-bold"
-              htmlFor="apellido"
-              name="apellido"
+              className="uppercase text-gray-600 block font-bold"
+              htmlFor="description"
+            >
+              Descripcion
+            </label>
+            <textarea
+              id="description"
               type="text"
-            >
-              Apellidos
-            </label>
-            <input
-              id="apellido"
-              type="text"
-              placeholder="apellidos"
+              placeholder="descripcion"
               className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-              value={lastname}
-              onChange={(e) => setLastname(e.target.value)}
+              value={description}
+              onChange={handleDescripcionChange}
             />
-          </div>
-
-          <div className="my-5">
-            <label
-              className="uppercase text-gray-600 block  font-bold"
-              htmlFor="email"
-              name="email"
-              type="email"
-            >
-              Email
-            </label>
-
-            <input
-              id="email"
-              type="email"
-              placeholder="Email"
-              className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="my-5">
-            <label
-              className="uppercase text-gray-600 block  font-bold"
-              htmlFor="document"
-              name="document"
-              type="number"
-            >
-              documento
-            </label>
-
-            <input
-              id="document"
-              type="number"
-              placeholder="documento"
-              className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-              value={document}
-              onChange={(e) => setDocument(e.target.value)}
-            />
-          </div>
-
-          <div className="my-5">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="grid-state"
-            >
-              Seleccione programa académico
-            </label>
-            <div className="relative">
-              <select
-                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                onChange={(e) => setIdAcademyProgram(e.target.value)}
-                name="academyProgram"
-                label="academyProgram"
-              >
-                {academyProgram.map((academyProgram) => (
-                  <option key={academyProgram.id} value={academyProgram.id}>
-                    {academyProgram.name}
-                  </option>
-                ))}
-              </select>
-            </div>
           </div>
 
           <input

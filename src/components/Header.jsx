@@ -5,25 +5,34 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <>
-      <header>
+      <header className="fixed top-0 left-0 right-0 z-50">
         <nav
-          className="relative flex w-full items-center justify-between shadow-lg  dark:bg-gray-800 md:flex-wrap md:justify-start"
+          className="relative flex w-full items-center justify-between shadow-lgbg-gray-800 md:flex-wrap md:justify-start "
           data-te-navbar-ref
         >
           <Link to="/">
             <img
-              src="/public/Logo-FABLAB-PNG-horizontal.png"
+              src="/src/img/Logo-FABLAB-PNG-horizontal.png"
               width="200"
               height="200"
               alt="logo fablab"
             />
           </Link>
+          <Link to="/">
+            <button className="flex items-center px-4 py-2 rounded ml-auto">
+              <span className="text-white">Registrar asistencia</span>
+            </button>
+          </Link>
+          <Link to="laboratoriosregistrados">
+            <button className="flex items-center px-4 py-2 rounded ml-auto">
+              <span className="text-white">laboratorios</span>
+            </button>
+          </Link>
 
           <div className="ml-auto">
-          <Link to="registrarestudiante">
+            <Link to="registrarestudiante">
               <button className="flex items-center px-4 py-2 rounded ml-auto">
-           
-                <span className="text-white">Registar estudiante</span>
+                <span className="text-white">Registrar estudiante</span>
               </button>
             </Link>
 
@@ -49,7 +58,7 @@ const Header = () => {
           </div>
         </nav>
       </header>
-      <main className="container">
+      <main className="container mt-24 z-40">
         <Outlet />
       </main>
     </>

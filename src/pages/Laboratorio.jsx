@@ -4,7 +4,7 @@ import ListaLaboratorio from './ListaLaboratorio';
 
 const Laboratorio = () => {
   return (
-    <div className="container md:flex z-40 pt-10 ">
+    <div className="container md:flex z-40  ">
     <RegistrarLaboratorio/>
     <ListaLaboratorio/>
     </div>

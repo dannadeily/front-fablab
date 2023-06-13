@@ -45,7 +45,7 @@ const Login = ({ handleLogin }) => {
           message: "exitoso",
         });
         setTimeout(() => setAlertError({ error: false, message: "" }), 5000); // limpiar la alerta después de 5 segundos
-        handleLogin();
+        handleLogin(token);
         navigate("/administrador");
         setEmail("");
         setPassword("");
@@ -112,7 +112,6 @@ const Login = ({ handleLogin }) => {
           >
             Iniciar sesión
           </button>
-          
         </div>
       </form>
     </div>

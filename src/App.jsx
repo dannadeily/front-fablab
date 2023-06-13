@@ -14,6 +14,7 @@ import RegistrarEstudiante from "./pages/RegistrarEstudiante";
 import Carrera from "./pages/Carrera";
 import Laboratorio from "./pages/Laboratorio";
 import Reporte from "./pages/Reporte";
+import LaboratoriosRegistrados from "./pages/LaboratoriosRegistrados";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -23,10 +24,6 @@ function App() {
     localStorage.setItem("token", token);
   };
 
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-  };
-
   return (
     <Router>
       <Routes>
@@ -34,16 +31,19 @@ function App() {
           <Route index element={<Teclado />} />
           <Route path="login" element={<Login handleLogin={handleLogin} />} />
           <Route path="registrarestudiante" element={<RegistrarEstudiante />} />
+          <Route
+            path="laboratoriosregistrados"
+            element={<LaboratoriosRegistrados />}
+          />
         </Route>
         <Route
           path="/administrador"
           element={<RutaProtegida isAuthenticated={isAuthenticated} />}
         >
           <Route index element={<Teclado />} />
-          <Route path="carrera" element={<Carrera />}/>
-          <Route path="laboratorio" element={<Laboratorio />}/>
-          <Route path="reporte" element={<Reporte />}/>
-
+          <Route path="carrera" element={<Carrera />} />
+          <Route path="laboratorio" element={<Laboratorio />} />
+          <Route path="reporte" element={<Reporte />} />
         </Route>
       </Routes>
     </Router>

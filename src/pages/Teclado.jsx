@@ -31,7 +31,7 @@ const Teclado = () => {
       });
       setDocument("");
       setAlertSucces({ error: true, message: "Asistencia registrada" });
-      setTimeout(() => setAlertSucces({ error: false, message: "" }), 10000);
+      setTimeout(() => setAlertSucces({ error: false, message: "" }), 1100);
     } catch (error) {
       // Manejar el error de la solicitud
       if (
@@ -41,14 +41,14 @@ const Teclado = () => {
       ) {
         setAlertError({ error: true, message: error.response.data.message });
       }
-      setTimeout(() => setAlertError({ error: false, message: "" }), 10000);
+      setTimeout(() => setAlertError({ error: false, message: "" }), 1100);
     }
   };
 
   return (
     <div>
       <div>
-        <h1 className="pb-2 font-bold text-2xl pt-5 pb-8">
+        <h1 className="pb-2 font-bold text-2xl  ">
           Bienvenido al Laboratorio de Fabricación Digital San José de Cúcuta
         </h1>
       </div>
@@ -69,82 +69,81 @@ const Teclado = () => {
               className="text-gray-500 text-right py-10 outline-none bg-transparent w-full"
             />
           </div>
-          </form>
-          <div className="grid grid-cols-3 gap-4">
-            <button
-              onClick={() => handledocumentChange("1")}
-              className="btn border border-black py-5 rounded "
-            >
-              1
-            </button>
-            <button
-              onClick={() => handleButtonClick("2")}
-              className="btn border border-black py-5 rounded"
-            >
-              2
-            </button>
-            <button
-              onClick={() => handleButtonClick("3")}
-              className="btn border border-black py-5 rounded"
-            >
-              3
-            </button>
-            <button
-              onClick={() => handleButtonClick("4")}
-              className="btn border border-black py-5 rounded"
-            >
-              4
-            </button>
-            <button
-              onClick={() => handleButtonClick("5")}
-              className="btn border border-black py-5 rounded"
-            >
-              5
-            </button>
-            <button
-              onClick={() => handleButtonClick("6")}
-              className="btn border border-black py-5 rounded"
-            >
-              6
-            </button>
-            <button
-              onClick={() => handleButtonClick("7")}
-              className="btn border border-black py-5 rounded"
-            >
-              7
-            </button>
-            <button
-              onClick={() => handleButtonClick("8")}
-              className="btn border border-black py-5 rounded"
-            >
-              8
-            </button>
-            <button
-              onClick={() => handleButtonClick("9")}
-              className="btn border border-black py-5 rounded"
-            >
-              9
-            </button>
-            <button
-              onClick={() => setDocument("")}
-              className="btn border border-black py-5 rounded bg-red-500"
-            >
-              Borrar
-            </button>
-            <button
-              onClick={() => handleButtonClick("0")}
-              className="btn border border-black py-5 rounded"
-            >
-              0
-            </button>
-            <button
-              onClick={handleSubmit}
-              className="btn border border-black py-5 rounded bg-green-500"
-            >
-              Ingresar
-            </button>
-          </div>
-        
+        </form>
+        <div className="grid grid-cols-3 gap-4">
+          <button
+            onClick={() => handleButtonClick("1")}
+            className="btn border border-black py-5 rounded "
+          >
+            1
+          </button>
+          <button
+            onClick={() => handleButtonClick("2")}
+            className="btn border border-black py-5 rounded"
+          >
+            2
+          </button>
+          <button
+            onClick={() => handleButtonClick("3")}
+            className="btn border border-black py-5 rounded"
+          >
+            3
+          </button>
+          <button
+            onClick={() => handleButtonClick("4")}
+            className="btn border border-black py-5 rounded"
+          >
+            4
+          </button>
+          <button
+            onClick={() => handleButtonClick("5")}
+            className="btn border border-black py-5 rounded"
+          >
+            5
+          </button>
+          <button
+            onClick={() => handleButtonClick("6")}
+            className="btn border border-black py-5 rounded"
+          >
+            6
+          </button>
+          <button
+            onClick={() => handleButtonClick("7")}
+            className="btn border border-black py-5 rounded"
+          >
+            7
+          </button>
+          <button
+            onClick={() => handleButtonClick("8")}
+            className="btn border border-black py-5 rounded"
+          >
+            8
+          </button>
+          <button
+            onClick={() => handleButtonClick("9")}
+            className="btn border border-black py-5 rounded"
+          >
+            9
+          </button>
+          <button
+            onClick={() => setDocument("")}
+            className="btn border border-black py-5 rounded bg-red-500"
+          >
+            Borrar
+          </button>
+          <button
+            onClick={() => handleButtonClick("0")}
+            className="btn border border-black py-5 rounded"
+          >
+            0
+          </button>
+          <button
+            onClick={handleSubmit}
+            className="btn border border-black py-5 rounded bg-green-500"
+          >
+            Ingresar
+          </button>
+        </div>
       </div>
     </div>
   );
