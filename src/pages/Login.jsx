@@ -65,7 +65,7 @@ const Login = ({ handleLogin }) => {
   };
 
   return (
-    <div className=" xl:mx-96 lg:mx-60 md:mx-40 sm:mx-20 my-10 bg-white shadow rounded-lg p-10">
+    <div className=" xl:mx-96 lg:mx-60 md:mx-40 sm:mx-20 my-10  p-10">
       <form
         onSubmit={handleSubmit}
         className="px-14 py-10 border border-gray-300 rounded-lg shadow-lg"
