@@ -15,6 +15,8 @@ import Carrera from "./pages/Carrera";
 import Laboratorio from "./pages/Laboratorio";
 import Reporte from "./pages/Reporte";
 import LaboratoriosRegistrados from "./pages/LaboratoriosRegistrados";
+import ReporteCarrera from "./pages/ReporteCarrera";
+import ReporteLaboratorio from "./pages/ReporteLaboratorio";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -44,6 +46,8 @@ function App() {
           <Route path="carrera" element={<Carrera />} />
           <Route path="laboratorio" element={<Laboratorio />} />
           <Route path="reporte" element={<Reporte />} />
+          <Route path="reportecarrera" element={<ReporteCarrera />} />
+          <Route path="reportelaboratorio" element={<ReporteLaboratorio />} />
         </Route>
       </Routes>
     </Router>

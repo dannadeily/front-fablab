@@ -78,7 +78,6 @@ const ReportesPDF = ({ data }) => {
               })}
             </Text>
           </View>
-
           <View style={styles.table}>
             <View style={styles.tableRow}>
               <View style={styles.tableCol}>
@@ -122,9 +121,12 @@ const ReportesPDF = ({ data }) => {
     </Document>
   );
 };
-const Reporte = () => {
+
+const ReporteCarrera = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [teacher, setTeacher] = useState([]);
+  const [teacherId, setTeacherId] = useState("");
   const [dataReporte, setDataReporte] = useState([]);
 
   const handleSubmit = async (e) => {
@@ -132,10 +134,11 @@ const Reporte = () => {
 
     try {
       const res = await conexionAxios.post(
-        "/consultation/getAllByDateBetween",
+        "/consultation/getAllByTeacherIdAndDateBetween/" + teacherId,
         {
           startDate,
           endDate,
+          teacherId,
         }
       );
 
@@ -149,11 +152,31 @@ const Reporte = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await conexionAxios.get("/user/teachers");
+        setTeacher(response.data);
+        handleChange(response.data[0].id);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleChange = async (teacherId) => {
+    setTeacherId(teacherId);
+  };
+
   return (
     <div>
       <div className="px-10">
         <div className="mb-4">
-          <h1 className="text-2xl font-bold ">Reporte general</h1>
+          <h1 className="text-2xl font-bold ">
+            Reporte por carreras
+          </h1>
         </div>
       </div>
       <form onSubmit={handleSubmit}>
@@ -178,12 +201,47 @@ const Reporte = () => {
           </div>
         </div>
 
-        <div className="w-52  mx-auto my-5">
-          <input
-            type="submit"
-            value="Consultar"
-            className="bg-blue-500 mb-5 w-full py-2 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"
-          />
+        <div className="md:w-1/2 lg:w-3/5 mx-auto my-5">
+          <div>
+            <label
+              className="uppercase text-gray-600 block font-bold"
+              htmlFor="docente"
+              name="docente"
+              type="text"
+            >
+              Seleccione el docente:
+            </label>
+
+            <div className="relative pb-4">
+              <select
+                className="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 bg-white"
+                onChange={(e) => handleChange(e.target.value)}
+                value={teacherId}
+                name="docente"
+                label="docente"
+              >
+                {teacher.map((teachers) => (
+                  <option key={teachers.id} value={teachers.id}>
+                    {teachers.name} {teachers.lastname}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  className="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path fillRule="evenodd" d="M6 8l4 4 4-4H6z" />
+                </svg>
+              </div>
+            </div>
+            <input
+              type="submit"
+              value="Consultar"
+              className="bg-blue-500 mb-5 w-full py-2 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"
+            />
+          </div>
         </div>
       </form>
 
@@ -193,27 +251,42 @@ const Reporte = () => {
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                  <table className="min-w-full divide-y divide-gray-400 ">
-                    <thead className="text-xs  uppercase bg-blue-400">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
                       <tr>
-                        <th scope="col" className="px-6 py-3">
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
                           Docente
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
                           Materia
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
                           Asunto
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
                           Estudiante
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
                           Fecha y hora
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-gray-400">
+                    <tbody className="bg-white divide-y divide-gray-200">
                       {dataReporte.map((item) => (
                         <tr key={item.id}>
                           <td className="px-6 py-4 whitespace-nowrap">
@@ -266,13 +339,11 @@ const Reporte = () => {
       ) : (
         <div className="mb-4">
           <div className="px-10 py-5"></div>
-          <p className="text-xl mt-5 mb-10 text-center">
-            No hay reportes en el rango de fechas establecido
-          </p>
+          <p className="text-xl mt-5 mb-10 text-center">No hay reprotes en el rango de fecha establecido</p>
         </div>
       )}
     </div>
   );
 };
 
-export default Reporte;
+export default ReporteCarrera;

@@ -13,6 +13,7 @@ const Login = ({ handleLogin }) => {
     error: false,
     message: "",
   });
+
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
@@ -62,26 +63,29 @@ const Login = ({ handleLogin }) => {
       setTimeout(() => setAlertError({ error: false, message: "" }), 10000);
     }
   };
+
   return (
-    <div className="flex items-center justify-center ">
-      <form onSubmit={handleSubmit} className=" px-8 pt-10 pb-8 ">
-        <h2 className="text-center text-xl font-medium mb-4 ">
-          Iniciar sesión
-        </h2>
+    <div className=" xl:mx-96 lg:mx-60 md:mx-40 sm:mx-20 my-10 bg-white shadow rounded-lg p-10">
+      <form
+        onSubmit={handleSubmit}
+        className="px-14 py-10 border border-gray-300 rounded-lg shadow-lg"
+      >
+        <h2 className="text-center text-xl font-medium mb-4">Iniciar sesión</h2>
 
         {alertError.error && !alertSucces.error && (
           <AlertError message={alertError.message} />
         )}
         {alertSucces.error && <AlertSucces message={alertSucces.message} />}
+
         <div className="mb-4">
           <label
-            className="block text-gray-700 font-medium mb-2"
             htmlFor="email"
+            className="block text-gray-700 font-medium mb-2"
           >
             Correo electrónico
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+           className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
             id="email"
             type="email"
             placeholder="Correo electrónico"
@@ -89,15 +93,16 @@ const Login = ({ handleLogin }) => {
             onChange={handleEmailChange}
           />
         </div>
+
         <div className="mb-4">
           <label
-            className="block text-gray-700 font-medium mb-2"
             htmlFor="password"
+            className="block text-gray-700 font-medium mb-2"
           >
             Contraseña
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
             id="password"
             type="password"
             placeholder="Contraseña"
@@ -105,6 +110,7 @@ const Login = ({ handleLogin }) => {
             onChange={handlePasswordChange}
           />
         </div>
+
         <div className="flex items-center justify-between">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline"
