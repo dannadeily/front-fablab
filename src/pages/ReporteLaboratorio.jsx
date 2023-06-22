@@ -46,10 +46,11 @@ const ReportesPDF = ({ data }) => {
       borderWidth: 1,
       borderRightWidth: 0,
       borderBottomWidth: 0,
+      tableLayout: "auto",
     },
     tableRow: {
-      margin: "auto",
       flexDirection: "row",
+      borderBottomWidth: 1,
     },
     tableCol: {
       width: "20%",
@@ -59,9 +60,9 @@ const ReportesPDF = ({ data }) => {
       borderTopWidth: 0,
     },
     tableCell: {
-      margin: "auto",
       marginTop: 5,
       fontSize: 10,
+      padding: 5,
     },
   });
 
@@ -70,7 +71,7 @@ const ReportesPDF = ({ data }) => {
       <Page size="A4" style={styles.page}>
         <View style={styles.section}>
           <View style={styles.header}>
-            <Text style={styles.reportName}>Reporte de Asesorías</Text>
+            <Text style={styles.reportName}>Reporte por laboratorios</Text>
             <Text style={styles.date}>
               {new Date().toLocaleString("es-ES", {
                 timeZone: "UTC",
@@ -81,37 +82,45 @@ const ReportesPDF = ({ data }) => {
           <View style={styles.table}>
             <View style={styles.tableRow}>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Docente</Text>
+                <Text style={styles.tableCell}>Documento</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Materia</Text>
+                <Text style={styles.tableCell}>Nombre</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Asunto</Text>
+                <Text style={styles.tableCell}>Email</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Estudiante</Text>
+                <Text style={styles.tableCell}>Laboratorio</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Fecha y hora</Text>
+                <Text style={styles.tableCell}>Fecha</Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>Hora</Text>
               </View>
             </View>
             {data.map((item) => (
               <View style={styles.tableRow}>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{item.docente}</Text>
+                  <Text style={styles.tableCell}>{item.user.document}</Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{item.materia} </Text>
+                  <Text style={styles.tableCell}>
+                    {item.user.name} {item.user.lastname}{" "}
+                  </Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{item.description}</Text>
+                  <Text style={styles.tableCell}>{item.user.email}</Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{item.estudiante}</Text>
+                  <Text style={styles.tableCell}>{item.laboratory.name}</Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{item.date}</Text>
+                  <Text style={styles.tableCell}>{item.fecha}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>{item.hora}</Text>
                 </View>
               </View>
             ))}
@@ -154,6 +163,7 @@ const ReporteLaboratorio = () => {
       try {
         const response = await conexionAxios.get("/laboratory");
         setLaboratory(response.data.message);
+        setLaboratoryId(response.data.message[0].id);
       } catch (error) {
         console.error(error);
       }
@@ -252,31 +262,37 @@ const ReporteLaboratorio = () => {
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Docente
+                          Documento
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Materia
+                          Nombre
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Asunto
+                          Email
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Estudiante
+                          Laboratorio
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Fecha y hora
+                          Fecha
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Hora
                         </th>
                       </tr>
                     </thead>
@@ -287,29 +303,38 @@ const ReporteLaboratorio = () => {
                             <div className="flex items-center">
                               <div className="ml-4">
                                 <div className="text-sm font-medium text-gray-900">
-                                  {item.docente}
+                                  {item.user.document}
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex items-center">
+                              <div className="ml-4">
+                                <div className="text-sm font-medium text-gray-900">
+                                  {item.user.name} {item.user.lastname}
                                 </div>
                               </div>
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">
-                              {item.materia}
+                              {item.user.email}
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">
-                              {item.description}
+                              {item.laboratory.name}
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">
-                              {item.estudiante}
+                              {item.fecha}
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">
-                              {item.date}
+                              {item.hora}
                             </div>
                           </td>
                         </tr>

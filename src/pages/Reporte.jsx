@@ -46,10 +46,11 @@ const ReportesPDF = ({ data }) => {
       borderWidth: 1,
       borderRightWidth: 0,
       borderBottomWidth: 0,
+      tableLayout: "auto",
     },
     tableRow: {
-      margin: "auto",
       flexDirection: "row",
+      borderBottomWidth: 1,
     },
     tableCol: {
       width: "20%",
@@ -59,9 +60,9 @@ const ReportesPDF = ({ data }) => {
       borderTopWidth: 0,
     },
     tableCell: {
-      margin: "auto",
       marginTop: 5,
       fontSize: 10,
+      padding: 5,
     },
   });
 
@@ -70,7 +71,7 @@ const ReportesPDF = ({ data }) => {
       <Page size="A4" style={styles.page}>
         <View style={styles.section}>
           <View style={styles.header}>
-            <Text style={styles.reportName}>Reporte de Asesorías</Text>
+            <Text style={styles.reportName}>Reporte por laboratorios</Text>
             <Text style={styles.date}>
               {new Date().toLocaleString("es-ES", {
                 timeZone: "UTC",
@@ -78,41 +79,48 @@ const ReportesPDF = ({ data }) => {
               })}
             </Text>
           </View>
-
           <View style={styles.table}>
             <View style={styles.tableRow}>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Docente</Text>
+                <Text style={styles.tableCell}>Documento</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Materia</Text>
+                <Text style={styles.tableCell}>Nombre</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Asunto</Text>
+                <Text style={styles.tableCell}>Email</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Estudiante</Text>
+                <Text style={styles.tableCell}>Laboratorio</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Fecha y hora</Text>
+                <Text style={styles.tableCell}>Fecha</Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>Hora</Text>
               </View>
             </View>
             {data.map((item) => (
               <View style={styles.tableRow}>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{item.docente}</Text>
+                  <Text style={styles.tableCell}>{item.user.document}</Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{item.materia} </Text>
+                  <Text style={styles.tableCell}>
+                    {item.user.name} {item.user.lastname}{" "}
+                  </Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{item.description}</Text>
+                  <Text style={styles.tableCell}>{item.user.email}</Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{item.estudiante}</Text>
+                  <Text style={styles.tableCell}>{item.laboratory.name}</Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{item.date}</Text>
+                  <Text style={styles.tableCell}>{item.fecha}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>{item.hora}</Text>
                 </View>
               </View>
             ))}
@@ -122,6 +130,7 @@ const ReportesPDF = ({ data }) => {
     </Document>
   );
 };
+
 const Reporte = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -131,13 +140,10 @@ const Reporte = () => {
     e.preventDefault();
 
     try {
-      const res = await conexionAxios.post(
-        "/consultation/getAllByDateBetween",
-        {
-          startDate,
-          endDate,
-        }
-      );
+      const res = await conexionAxios.post("/reportGeneral", {
+        startDate,
+        endDate,
+      });
 
       if (res.status === 200) {
         console.log(res.data);
@@ -196,20 +202,41 @@ const Reporte = () => {
                   <table className="min-w-full divide-y divide-gray-400 ">
                     <thead className="text-xs  uppercase bg-blue-400">
                       <tr>
-                        <th scope="col" className="px-6 py-3">
-                          Docente
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Documento
                         </th>
-                        <th scope="col" className="px-6 py-3">
-                          Materia
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Nombre
                         </th>
-                        <th scope="col" className="px-6 py-3">
-                          Asunto
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Email
                         </th>
-                        <th scope="col" className="px-6 py-3">
-                          Estudiante
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Laboratorio
                         </th>
-                        <th scope="col" className="px-6 py-3">
-                          Fecha y hora
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Fecha
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Hora
                         </th>
                       </tr>
                     </thead>
@@ -220,29 +247,38 @@ const Reporte = () => {
                             <div className="flex items-center">
                               <div className="ml-4">
                                 <div className="text-sm font-medium text-gray-900">
-                                  {item.docente}
+                                  {item.user.document}
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex items-center">
+                              <div className="ml-4">
+                                <div className="text-sm font-medium text-gray-900">
+                                  {item.user.name} {item.user.lastname}
                                 </div>
                               </div>
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">
-                              {item.materia}
+                              {item.user.email}
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">
-                              {item.description}
+                              {item.laboratory.name}
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">
-                              {item.estudiante}
+                              {item.fecha}
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">
-                              {item.date}
+                              {item.hora}
                             </div>
                           </td>
                         </tr>
