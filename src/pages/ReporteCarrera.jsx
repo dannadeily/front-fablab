@@ -71,7 +71,7 @@ const ReportesPDF = ({ data }) => {
       <Page size="A4" style={styles.page}>
         <View style={styles.section}>
           <View style={styles.header}>
-            <Text style={styles.reportName}>Reporte por laboratorios</Text>
+            <Text style={styles.reportName}>Reporte por carrera</Text>
             <Text style={styles.date}>
               {new Date().toLocaleString("es-ES", {
                 timeZone: "UTC",
