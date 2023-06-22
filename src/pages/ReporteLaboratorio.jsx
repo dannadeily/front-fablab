@@ -125,22 +125,19 @@ const ReportesPDF = ({ data }) => {
 const ReporteLaboratorio = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [teacher, setTeacher] = useState([]);
-  const [teacherId, setTeacherId] = useState("");
+  const [laboratoryId, setLaboratoryId] = useState([]);
+  const [laboratory, setLaboratory] = useState([]);
   const [dataReporte, setDataReporte] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await conexionAxios.post(
-        "/consultation/getAllByTeacherIdAndDateBetween/" + teacherId,
-        {
-          startDate,
-          endDate,
-          teacherId,
-        }
-      );
+      const res = await conexionAxios.post("/reportByLaboratory", {
+        startDate,
+        endDate,
+        laboratoryId,
+      });
 
       if (res.status === 200) {
         console.log(res.data);
@@ -155,9 +152,8 @@ const ReporteLaboratorio = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await conexionAxios.get("/user/teachers");
-        setTeacher(response.data);
-        handleChange(response.data[0].id);
+        const response = await conexionAxios.get("/laboratory");
+        setLaboratory(response.data.message);
       } catch (error) {
         console.error(error);
       }
@@ -166,17 +162,15 @@ const ReporteLaboratorio = () => {
     fetchData();
   }, []);
 
-  const handleChange = async (teacherId) => {
-    setTeacherId(teacherId);
+  const handleChange = async (laboratoryId) => {
+    setLaboratoryId(laboratoryId);
   };
 
   return (
     <div>
       <div className="px-10">
         <div className="mb-4">
-          <h1 className="text-2xl font-bold ">
-            Reporte por laboratorios
-          </h1>
+          <h1 className="text-2xl font-bold ">Reporte por laboratorios</h1>
         </div>
       </div>
       <form onSubmit={handleSubmit}>
@@ -209,20 +203,20 @@ const ReporteLaboratorio = () => {
               name="docente"
               type="text"
             >
-              Seleccione el docente:
+              Seleccione el laboratorio:
             </label>
 
             <div className="relative pb-4">
               <select
                 className="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 bg-white"
                 onChange={(e) => handleChange(e.target.value)}
-                value={teacherId}
-                name="docente"
-                label="docente"
+                value={laboratoryId}
+                name="laboratorio"
+                label="laboratorio"
               >
-                {teacher.map((teachers) => (
-                  <option key={teachers.id} value={teachers.id}>
-                    {teachers.name} {teachers.lastname}
+                {laboratory.map((laboratoryItem) => (
+                  <option key={laboratoryItem.id} value={laboratoryItem.id}>
+                    {laboratoryItem.name}
                   </option>
                 ))}
               </select>
@@ -339,7 +333,9 @@ const ReporteLaboratorio = () => {
       ) : (
         <div className="mb-4">
           <div className="px-10 py-5"></div>
-          <p className="text-xl mt-5 mb-10 text-center">No hay reportes en el rango de fecha establecido</p>
+          <p className="text-xl mt-5 mb-10 text-center">
+            No hay reportes en el rango de fecha establecido
+          </p>
         </div>
       )}
     </div>
