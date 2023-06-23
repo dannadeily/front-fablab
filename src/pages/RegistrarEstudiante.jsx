@@ -21,6 +21,7 @@ const RegistrarEstudiante = () => {
       try {
         const response = await conexionAxios.get("/academyProgram");
         setAcademyProgram(response.data.message);
+        setIdAcademyProgram(response.data.message[0].id);
       } catch (error) {
         console.error(error);
       }
