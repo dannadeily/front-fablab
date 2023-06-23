@@ -19,6 +19,7 @@ const Teclado = () => {
       try {
         const response = await conexionAxios.get("/laboratory");
         setLaboratory(response.data.message);
+        setLaboratoryId(response.data.message[0].id);
       } catch (error) {
         console.error(error);
       }
