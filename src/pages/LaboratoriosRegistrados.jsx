@@ -22,7 +22,7 @@ const LaboratoriosRegistrados = () => {
       {laboratorio && laboratorio.length ? (
         <>
           <h2 className="font-black text-2xl text-center mb-5">
-            Laboratorios
+            Aulas
           </h2>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

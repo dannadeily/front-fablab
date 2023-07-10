@@ -25,7 +25,7 @@ const Header = () => {
           </Link>
           <Link to="laboratoriosregistrados">
             <button className="flex items-center px-4 py-2 rounded ml-auto">
-              <span className="text-white">laboratorios</span>
+              <span className="text-white">Aulas</span>
             </button>
           </Link>
 
