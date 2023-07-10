@@ -12,7 +12,7 @@ const Header = () => {
         >
           <Link to="/">
             <img
-              src="/src/img/Logo-FABLAB-PNG-horizontal.png"
+              src="/Logo-FABLAB-PNG-horizontal.png"
               width="200"
               height="200"
               alt="logo fablab"

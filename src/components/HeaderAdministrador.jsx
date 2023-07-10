@@ -72,7 +72,7 @@ const HeaderAdministrador = () => {
             <div className="hidden md:flex items-center">
               <Link to="/administrador">
                 <img
-                  src="/src/img/Logo-FABLAB-PNG-horizontal.png"
+                  src="/Logo-FABLAB-PNG-horizontal.png"
                   width="200"
                   height="200"
                   alt="logo fablab"
