@@ -1,3 +1,3 @@
-const ruta = "http://137.184.19.238:5050";
+const ruta = "http://localhost:5050";
 
 export default ruta;
