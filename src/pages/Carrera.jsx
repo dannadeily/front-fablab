@@ -3,10 +3,12 @@ import RegistrarCarrera from "./RegistrarCarrera";
 import ListaCarrera from "./ListaCarrera";
 
 const Carrera = () => {
-  return<div className="container md:flex z-40  ">
-    <RegistrarCarrera/>
-    <ListaCarrera/>
-    </div>;
+  return (
+    <div className="container md:flex z-40  ">
+      <RegistrarCarrera />
+      <ListaCarrera />
+    </div>
+  );
 };
 
 export default Carrera;

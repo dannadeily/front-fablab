@@ -81,7 +81,7 @@ const RegistrarLaboratorio = () => {
       <div className="md:w-1/2 lg:w-2/5 mx-5">
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <h1 className="font-bold text-2xl text-center text-gray-900">
-            REGISTRAR LABORATORIO
+            REGISTRAR AULA
           </h1>
 
           {alertError.error && !alertSucces.error && (
@@ -104,7 +104,7 @@ const RegistrarLaboratorio = () => {
               className="uppercase text-gray-600 block font-bold"
               htmlFor="nombre"
             >
-              Nombre del laboratorio
+              Nombre del aula
             </label>
             <input
               id="nombre"

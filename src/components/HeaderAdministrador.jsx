@@ -87,25 +87,72 @@ const HeaderAdministrador = () => {
                   Registrar asistencia
                 </button>
               </Link>
-              <Link to="carrera">
-                <button
-                  onClick={handleMobileMenuClose}
-                  className="py-2 px-3 rounded-md hover:bg-transparent hover:text-blue-700 text-white"
-                >
-                  Carreras
-                </button>
-              </Link>
-              <Link to="laboratorio">
-                <button
-                  onClick={handleMobileMenuClose}
-                  className="py-2 px-3 rounded-md hover:bg-transparent hover:text-blue-700 text-white"
-                >
-                  Laboratorios
-                </button>
-              </Link>
+
               <div>
                 <button
                   onClick={() => handleClick2("menu1")}
+                  id="dropdownNavbarLink"
+                  data-dropdown-toggle="dropdownNavbar"
+                  className="flex py-2 px-3 rounded-md hover:bg-transparent hover:text-blue-700 text-white"
+                >
+                  Gestionar
+                  <svg
+                    className="w-5 h-5 ml-1"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path>
+                  </svg>
+                </button>
+
+                {openMenu2 === "menu1" && (
+                  <div className="absolute z-10 block font-normal bg-white divide-y  rounded shadow  divide-gray-600">
+                    <ul
+                      id="dropdownNavbar"
+                      className="py-1 text-sm text-gray-400"
+                      aria-labelledby="dropdownLargeButton"
+                    >
+                      <Link to="laboratorio" onClick={handleMobileMenuClose}>
+                        <li className="block px-4 py-2  text-black hover:bg-blue-300 hover:text-black">
+                          <button type="button">Aula</button>
+                        </li>
+                      </Link>
+                      <Link to="carrera" onClick={handleMobileMenuClose}>
+                        <li className="block px-4 py-2  text-black hover:bg-blue-300 hover:text-black">
+                          <button type="button">carrera</button>
+                        </li>
+                      </Link>
+                      <Link to="cargo" onClick={handleMobileMenuClose}>
+                        <li className="block px-4 py-2  text-black hover:bg-blue-300 hover:text-black">
+                          <button type="button">Cargos</button>
+                        </li>
+                      </Link>
+                      <Link to="tipodocumento" onClick={handleMobileMenuClose}>
+                        <li className="block px-4 py-2  text-black hover:bg-blue-300 hover:text-black">
+                          <button type="button">Tipo de documento</button>
+                        </li>
+                      </Link>
+                      <Link to="tipopoblacion" onClick={handleMobileMenuClose}>
+                        <li className="block px-4 py-2  text-black hover:bg-blue-300 hover:text-black">
+                          <button type="button">Tipo de población</button>
+                        </li>
+                      </Link>
+                      <Link to="institucion" onClick={handleMobileMenuClose}>
+                        <li className="block px-4 py-2  text-black hover:bg-blue-300 hover:text-black">
+                          <button type="button">Tipo de institución</button>
+                        </li>
+                      </Link>
+                     
+                    </ul>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <button
+                  onClick={() => handleClick2("menu2")}
                   id="dropdownNavbarLink"
                   data-dropdown-toggle="dropdownNavbar"
                   className="flex py-2 px-3 rounded-md hover:bg-transparent hover:text-blue-700 text-white"
@@ -122,7 +169,7 @@ const HeaderAdministrador = () => {
                   </svg>
                 </button>
 
-                {openMenu2 === "menu1" && (
+                {openMenu2 === "menu2" && (
                   <div className="absolute z-10 block font-normal bg-white divide-y  rounded shadow  divide-gray-600">
                     <ul
                       id="dropdownNavbar"

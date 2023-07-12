@@ -17,6 +17,10 @@ import Reporte from "./pages/Reporte";
 import LaboratoriosRegistrados from "./pages/LaboratoriosRegistrados";
 import ReporteCarrera from "./pages/ReporteCarrera";
 import ReporteLaboratorio from "./pages/ReporteLaboratorio";
+import TipoDocumento from "./pages/Tipodocumento";
+import TipoPoblacion from "./pages/TipoPoblacion";
+import Institucion from "./pages/Institucion";
+import Cargo from "./pages/Cargo";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -45,6 +49,10 @@ function App() {
           <Route index element={<Teclado />} />
           <Route path="carrera" element={<Carrera />} />
           <Route path="laboratorio" element={<Laboratorio />} />
+          <Route path="cargo" element={<Cargo/> } />
+          <Route path="tipodocumento" element={<TipoDocumento />} />
+          <Route path="tipopoblacion" element={<TipoPoblacion />} />
+          <Route path="institucion" element={<Institucion />} />
           <Route path="reporte" element={<Reporte />} />
           <Route path="reportecarrera" element={<ReporteCarrera />} />
           <Route path="reportelaboratorio" element={<ReporteLaboratorio />} />
