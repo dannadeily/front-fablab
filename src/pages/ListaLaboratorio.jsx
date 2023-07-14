@@ -17,6 +17,28 @@ const ListaLaboratorio = () => {
 
     fetchData();
   }, []);
+
+
+  const handleToggleEstado = async (id) => {
+    try {
+      const res = await conexionAxios.put(`/laboratory/changeState/${id}`);
+
+      if (res.status === 200) {
+        setLaboratorio((prevState) =>
+          prevState.map((laboratorioItem) =>
+            laboratorioItem.id === id
+              ? { ...laboratorioItem, isEnabled: !laboratorioItem.status }
+              : laboratorioItem
+          )
+        );
+
+      }
+    } catch (error) {
+      // Manejar el error de la solicitud
+    }
+  };
+
+
   return (
     <div className="md:w-1/2 lg:w-3/5 md:h-screen overflow-y-scroll">
       {laboratorio && laboratorio.length ? (
@@ -25,9 +47,7 @@ const ListaLaboratorio = () => {
 
           <p className="text-xl mt-5 mb-10 text-center">
             Administra las {""}
-            <span className="text-indigo-600 font-bold text-xl ">
-              Aulas
-            </span>
+            <span className="text-indigo-600 font-bold text-xl ">Aulas</span>
           </p>
 
           {laboratorio.map((laboratorioItem) => (
@@ -55,15 +75,25 @@ const ListaLaboratorio = () => {
                     </span>
                   </p>
                 </div>
+                <div className="flex justify-between ">
+                  <button
+                    className={`ml-2 text-white rounded-lg px-3 py-1 text-sm ${
+                      laboratorioItem.status ? "bg-green-500" : "bg-red-500"
+                    }`}
+                    onClick={() =>
+                      handleToggleEstado(laboratorioItem.id, laboratorioItem.status)
+                    }
+                  >
+                    {laboratorioItem.status ? "Habilitado" : "Deshabilitado"}
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </>
       ) : (
         <>
-          <h2 className="font-black text-2xl text-center">
-            No hay Aulas
-          </h2>
+          <h2 className="font-black text-2xl text-center">No hay Aulas</h2>
         </>
       )}
     </div>
