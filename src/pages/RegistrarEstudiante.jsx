@@ -7,15 +7,23 @@ const RegistrarEstudiante = () => {
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [code, setCode] = useState("");
-  const [academyProgram, setAcademyProgram] = useState([]);
+  
   const [document, setDocument] = useState("");
   const [idAcademyProgram, setIdAcademyProgram] = useState([]);
+  const [idDocumentType, setIdDocumentType] = useState([]);
+  const [idRole, setIdRole] = useState([]);
+  const [idPopulation, setIdPopulation] = useState([]);
   const [birthDate, setBirthDate] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [esMenorEdad, setEsMenorEdad] = useState(false);
   const [] = useState("");
   const [] = useState("");
+
+  const [academyProgram, setAcademyProgram] = useState([]);
+  const [documentType, setDocumentType] = useState([]);
+  const [roles, setRoles] = useState([]);
+  const [population, setPopulation] = useState([]);
 
   const handleFechaNacimientoChange = (e) => {
     setBirthDate(e.target.value);
@@ -44,9 +52,18 @@ const RegistrarEstudiante = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await conexionAxios.get("/academyProgram");
-        setAcademyProgram(response.data.message);
-        setIdAcademyProgram(response.data.message[0].id);
+        const responseAcademyProgram = await conexionAxios.get("/academyProgram");
+        setAcademyProgram(responseAcademyProgram.data.message);
+        setIdAcademyProgram(responseAcademyProgram.data.message[0].id);
+        const responseDocumetType = await conexionAxios.get("/documentsTypes/enable");
+        setDocumentType(responseDocumetType.data);
+        setIdDocumentType(responseDocumetType.data[0].id);
+        const responseRole = await conexionAxios.get("/role/enable");
+        setRoles(responseRole.data);
+        setIdRole(responseRole.data[0].id);
+        const responsePopulation = await conexionAxios.get("/populationTypes/enable");
+        setPopulation(responsePopulation.data);
+        setIdPopulation(responsePopulation.data[0].id);
       } catch (error) {
         console.error(error);
       }
@@ -79,6 +96,11 @@ const RegistrarEstudiante = () => {
         email,
         document,
         idAcademyProgram,
+        idDocumentType,
+        idRole,
+        idPopulation,
+        birthDate,
+        phone
       });
 
       if (res.status === 201) {
@@ -182,13 +204,13 @@ const RegistrarEstudiante = () => {
                 <div className="relative">
                   <select
                     className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    onChange={(e) => setIdAcademyProgram(e.target.value)}
-                    name="academyProgram"
-                    label="academyProgram"
+                    onChange={(e) => setIdDocumentType(e.target.value)}
+                    name="documentType"
+                    label="documentType"
                   >
-                    {academyProgram.map((academyProgram) => (
-                      <option key={academyProgram.id} value={academyProgram.id}>
-                        {academyProgram.name}
+                    {documentType.map((document) => (
+                      <option key={document.id} value={document.id}>
+                        {document.name}
                       </option>
                     ))}
                   </select>
@@ -329,13 +351,13 @@ const RegistrarEstudiante = () => {
                 <div className="relative">
                   <select
                     className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    onChange={(e) => setIdAcademyProgram(e.target.value)}
+                    onChange={(e) => setIdRole(e.target.value)}
                     name="academyProgram"
                     label="academyProgram"
                   >
-                    {academyProgram.map((academyProgram) => (
-                      <option key={academyProgram.id} value={academyProgram.id}>
-                        {academyProgram.name}
+                    {roles.map((rol) => (
+                      <option key={rol.id} value={rol.id}>
+                        {rol.name}
                       </option>
                     ))}
                   </select>
@@ -355,9 +377,9 @@ const RegistrarEstudiante = () => {
                     name="academyProgram"
                     label="academyProgram"
                   >
-                    {academyProgram.map((academyProgram) => (
-                      <option key={academyProgram.id} value={academyProgram.id}>
-                        {academyProgram.name}
+                    {population.map((poblacion) => (
+                      <option key={poblacion.id} value={poblacion.id}>
+                        {poblacion.name}
                       </option>
                     ))}
                   </select>
