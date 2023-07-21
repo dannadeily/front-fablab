@@ -105,7 +105,8 @@ const RegistrarEstudiante = () => {
         idRole,
         idPopulation,
         birthDate,
-        phone
+        phone,
+        idInstitucion,
       });
 
       if (res.status === 201) {
