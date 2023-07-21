@@ -7,7 +7,6 @@ const RegistrarEstudiante = () => {
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [code, setCode] = useState("");
-  
   const [document, setDocument] = useState("");
   const [idAcademyProgram, setIdAcademyProgram] = useState([]);
   const [idDocumentType, setIdDocumentType] = useState([]);
@@ -18,9 +17,6 @@ const RegistrarEstudiante = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [esMenorEdad, setEsMenorEdad] = useState(false);
-  const [] = useState("");
-  const [] = useState("");
-
   const [academyProgram, setAcademyProgram] = useState([]);
   const [documentType, setDocumentType] = useState([]);
   const [roles, setRoles] = useState([]);
@@ -195,8 +191,8 @@ const RegistrarEstudiante = () => {
                   type="text"
                   placeholder="codigo"
                   className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-                  value={lastname}
-                  onChange={(e) => setLastname(e.target.value)}
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
                 />
               </div>
               <div className="my-5">
