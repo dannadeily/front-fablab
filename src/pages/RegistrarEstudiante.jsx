@@ -13,6 +13,7 @@ const RegistrarEstudiante = () => {
   const [idDocumentType, setIdDocumentType] = useState([]);
   const [idRole, setIdRole] = useState([]);
   const [idPopulation, setIdPopulation] = useState([]);
+  const [idInstitucion, setIdInstitucion] = useState([]);
   const [birthDate, setBirthDate] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -24,6 +25,7 @@ const RegistrarEstudiante = () => {
   const [documentType, setDocumentType] = useState([]);
   const [roles, setRoles] = useState([]);
   const [population, setPopulation] = useState([]);
+  const [institucion, setInstitucion] = useState([]);
 
   const handleFechaNacimientoChange = (e) => {
     setBirthDate(e.target.value);
@@ -64,6 +66,9 @@ const RegistrarEstudiante = () => {
         const responsePopulation = await conexionAxios.get("/populationTypes/enable");
         setPopulation(responsePopulation.data);
         setIdPopulation(responsePopulation.data[0].id);
+        const responseInstitucion = await conexionAxios.get("/institution/enable");
+        setInstitucion(responseInstitucion.data);
+        setIdInstitucion(responseInstitucion.data[0].id);
       } catch (error) {
         console.error(error);
       }
@@ -329,13 +334,13 @@ const RegistrarEstudiante = () => {
                 <div className="relative">
                   <select
                     className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    onChange={(e) => setIdAcademyProgram(e.target.value)}
-                    name="academyProgram"
-                    label="academyProgram"
+                    onChange={(e) => setIdInstitucion(e.target.value)}
+                    name="institution"
+                    label="institution"
                   >
-                    {academyProgram.map((academyProgram) => (
-                      <option key={academyProgram.id} value={academyProgram.id}>
-                        {academyProgram.name}
+                    {institucion.map((institucioPos) => (
+                      <option key={institucioPos.id} value={institucioPos.id}>
+                        {institucioPos.name}
                       </option>
                     ))}
                   </select>
