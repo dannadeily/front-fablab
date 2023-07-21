@@ -23,7 +23,7 @@ const RegistrarInstitucion = () => {
     }
 
     try {
-      const res = await conexionAxios.post("/documentsTypes", {
+      const res = await conexionAxios.post("/institution/create", {
         name,
       });
 
@@ -53,7 +53,7 @@ const RegistrarInstitucion = () => {
       <div className="md:w-1/2 lg:w-2/5 mx-5">
         <form onSubmit={handleSubmit}>
           <h1 className=" font-bold text-2xl text-center text-gray-900  ">
-            REGISTRAR TIPO DOCUMENTO
+            REGISTRAR INSTITUCIÓN
           </h1>
 
           {alertError.error && !alertSucces.error && (
@@ -68,7 +68,7 @@ const RegistrarInstitucion = () => {
               name="nombre"
               type="text"
             >
-              Nombre del documento
+              Nombre de la institución
             </label>
 
             <input

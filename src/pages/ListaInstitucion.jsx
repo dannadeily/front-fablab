@@ -6,7 +6,7 @@ const ListaInstitucion = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await conexionAxios.get("/documentsTypes");
+          const response = await conexionAxios.get("/institution");
           setName(response.data);
         } catch (error) {
           console.error(error);
@@ -21,13 +21,13 @@ const ListaInstitucion = () => {
         {name && name.length ? (
           <>
             <h2 className="font-black text-2xl text-center">
-              listado 
+              listado de las instituciones
             </h2>
   
             <p className="text-xl mt-5 mb-10 text-center">
-              Administra los {""}
+              Administra las {""}
               <span className="text-indigo-600 font-bold text-xl ">
-                tipos de documentos
+                instituciones
               </span>
             </p>
   
@@ -48,10 +48,10 @@ const ListaInstitucion = () => {
         ) : (
           <>
             <h2 className="font-black text-2xl text-center">
-              No hay tipo de documentos registrados
+              No hay instituciones registradas
             </h2>
             <p className="text-xl mt-5 mb-10 text-center">
-              Comienza agregando tipos de documentos {""}
+              Comienza agregando una institución {""}
               <span className="text-indigo-600 font-bold text-xl ">
                 y apareceran en este lugar
               </span>

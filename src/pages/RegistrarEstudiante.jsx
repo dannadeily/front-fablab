@@ -203,7 +203,7 @@ const RegistrarEstudiante = () => {
                 </label>
                 <div className="relative">
                   <select
-                    className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="block appearance-none mt-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     onChange={(e) => setIdDocumentType(e.target.value)}
                     name="documentType"
                     label="documentType"
@@ -245,7 +245,7 @@ const RegistrarEstudiante = () => {
                 </label>
                 <div className="relative">
                   <select
-                    className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="block appearance-none mt-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     onChange={(e) => setIdAcademyProgram(e.target.value)}
                     name="academyProgram"
                     label="academyProgram"
@@ -273,7 +273,7 @@ const RegistrarEstudiante = () => {
                   id="date"
                   type="date"
                   placeholder="documento"
-                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="block appearance-none mt-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   value={birthDate}
                   onChange={handleFechaNacimientoChange}
                 />
@@ -328,7 +328,7 @@ const RegistrarEstudiante = () => {
                 </label>
                 <div className="relative">
                   <select
-                    className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="block appearance-none mt-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     onChange={(e) => setIdAcademyProgram(e.target.value)}
                     name="academyProgram"
                     label="academyProgram"
@@ -350,7 +350,7 @@ const RegistrarEstudiante = () => {
                 </label>
                 <div className="relative">
                   <select
-                    className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="block appearance-none mt-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     onChange={(e) => setIdRole(e.target.value)}
                     name="academyProgram"
                     label="academyProgram"
@@ -372,7 +372,7 @@ const RegistrarEstudiante = () => {
                 </label>
                 <div className="relative">
                   <select
-                    className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="block appearance-none mt-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     onChange={(e) => setIdAcademyProgram(e.target.value)}
                     name="academyProgram"
                     label="academyProgram"
