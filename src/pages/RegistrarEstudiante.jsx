@@ -50,19 +50,27 @@ const RegistrarEstudiante = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const responseAcademyProgram = await conexionAxios.get("/academyProgram");
+        const responseAcademyProgram = await conexionAxios.get(
+          "/academyProgram"
+        );
         setAcademyProgram(responseAcademyProgram.data.message);
         setIdAcademyProgram(responseAcademyProgram.data.message[0].id);
-        const responseDocumetType = await conexionAxios.get("/documentsTypes/enable");
+        const responseDocumetType = await conexionAxios.get(
+          "/documentsTypes/enable"
+        );
         setDocumentType(responseDocumetType.data);
         setIdDocumentType(responseDocumetType.data[0].id);
         const responseRole = await conexionAxios.get("/role/enable");
         setRoles(responseRole.data);
         setIdRole(responseRole.data[0].id);
-        const responsePopulation = await conexionAxios.get("/populationTypes/enable");
+        const responsePopulation = await conexionAxios.get(
+          "/populationTypes/enable"
+        );
         setPopulation(responsePopulation.data);
         setIdPopulation(responsePopulation.data[0].id);
-        const responseInstitucion = await conexionAxios.get("/institution/enable");
+        const responseInstitucion = await conexionAxios.get(
+          "/institution/enable"
+        );
         setInstitucion(responseInstitucion.data);
         setIdInstitucion(responseInstitucion.data[0].id);
       } catch (error) {
@@ -330,7 +338,7 @@ const RegistrarEstudiante = () => {
                 </label>
                 <div className="relative">
                   <select
-                    className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="block appearance-none mt-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     onChange={(e) => setIdAcademyProgram(e.target.value)}
                     name="academyProgram"
                     label="academyProgram"
