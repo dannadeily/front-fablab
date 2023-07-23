@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import conexionAxios from "../axios/Axios";
 import ruta from "../config/rutaBackend";
 
+
 const ListaLaboratorio = () => {
   const [laboratorio, setLaboratorio] = useState([]);
 

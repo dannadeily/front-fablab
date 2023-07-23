@@ -119,8 +119,11 @@ const RegistrarEstudiante = () => {
         // Reiniciar los valores de los campos
         setName("");
         setLastname("");
+        setCode("");
         setEmail("");
         setDocument("");
+        setBirthDate("");
+        setPhone("");
       }
     } catch (error) {
       // Manejar el error de la solicitud
