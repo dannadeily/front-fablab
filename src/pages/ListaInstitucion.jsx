@@ -19,7 +19,7 @@ const ListaInstitucion = () => {
   }, []);
   const handleToggleEstado = async (id) => {
     try {
-      const res = await conexionAxios.put(`/laboratory/changeState/${id}`);
+      const res = await conexionAxios.put(`/institution/changeState/${id}`);
   
       if (res.status === 200) {
         setLaboratorio((prevState) =>

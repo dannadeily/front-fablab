@@ -17,9 +17,9 @@ const Teclado = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await conexionAxios.get("/laboratory");
-        setLaboratory(response.data.message);
-        setLaboratoryId(response.data.message[0].id);
+        const response = await conexionAxios.get("/laboratory/enable");
+        setLaboratory(response.data);
+        setLaboratoryId(response.data[0].id);
       } catch (error) {
         console.error(error);
       }

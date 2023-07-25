@@ -21,7 +21,7 @@ const ListaTipoPoblacion = () => {
 
   const handleToggleEstado = async (id) => {
     try {
-      const res = await conexionAxios.put(`/laboratory/changeState/${id}`);
+      const res = await conexionAxios.put(`/populationTypes/changeState/${id}`);
 
       if (res.status === 200) {
         setLaboratorio((prevState) =>
@@ -66,7 +66,7 @@ const ListaTipoPoblacion = () => {
               <p className="font-bold mb-3 text-gray-700 uppercase">
                 Nombre:{" "}
                 <span className="font-normal normal-case">
-                  {poblacionItem.population_type}
+                  {poblacionItem.name}
                 </span>
               </p>
               <div className="flex justify-between ">

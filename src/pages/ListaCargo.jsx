@@ -20,14 +20,14 @@ const ListaCargo = () => {
   }, []);
   const handleToggleEstado = async (id) => {
     try {
-      const res = await conexionAxios.put(`/laboratory/changeState/${id}`);
+      const res = await conexionAxios.put(`/role/changeState/${id}`);
   
       if (res.status === 200) {
         setLaboratorio((prevState) =>
-          prevState.map((poblacionItem) =>
-            poblacionItem.id === id
-              ? { ...poblacionItem, isEnabled: !poblacionItem.isEnabled }
-              : poblacionItem
+          prevState.map((role) =>
+            role.id === id
+              ? { ...role, isEnabled: !role.isEnabled }
+              : role
           )
         );
 
@@ -54,38 +54,38 @@ const ListaCargo = () => {
             </span>
           </p>
 
-          {name.map((poblacionItem) => (
+          {name.map((role) => (
             <div
-              key={poblacionItem.id}
+              key={role.id}
               className="mx-5 my-10 bg-white shadow-md px-5 py-10 rounded-xl"
             >
               <p className="font-bold mb-3 text-gray-700 uppercase">
                 Nombre:{" "}
                 <span className="font-normal normal-case">
-                  {poblacionItem.population_type}
+                  {role.name}
                 </span>
               </p>
               <div className="flex justify-between ">
                 <button
                   className={`ml-2 text-white rounded-lg px-3 py-1 text-sm ${
                     selectedLaboratorio &&
-                    selectedLaboratorio.id === poblacionItem.id
+                    selectedLaboratorio.id === role.id
                       ? selectedLaboratorio.isEnabled
                         ? "bg-green-500"
                         : "bg-red-500"
-                      : poblacionItem.isEnabled
+                      : role.isEnabled
                       ? "bg-green-500"
                       : "bg-red-500"
                   }`}
-                  onClick={() => handleToggleEstado(poblacionItem.id)}
+                  onClick={() => handleToggleEstado(role.id)}
                 >
                   {/* Actualizar el texto del botón según el estado del laboratorio seleccionado */}
                   {selectedLaboratorio &&
-                  selectedLaboratorio.id === poblacionItem.id
+                  selectedLaboratorio.id === role.id
                     ? selectedLaboratorio.isEnabled
                       ? "Habilitado"
                       : "Deshabilitado"
-                    : poblacionItem.isEnabled
+                    : role.isEnabled
                     ? "Habilitado"
                     : "Deshabilitado"}
                 </button>

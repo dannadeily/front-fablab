@@ -51,10 +51,10 @@ const RegistrarEstudiante = () => {
     const fetchData = async () => {
       try {
         const responseAcademyProgram = await conexionAxios.get(
-          "/academyProgram"
+          "/academyProgram/enable"
         );
-        setAcademyProgram(responseAcademyProgram.data.message);
-        setIdAcademyProgram(responseAcademyProgram.data.message[0].id);
+        setAcademyProgram(responseAcademyProgram.data);
+        setIdAcademyProgram(responseAcademyProgram.data[0].id);
         const responseDocumetType = await conexionAxios.get(
           "/documentsTypes/enable"
         );

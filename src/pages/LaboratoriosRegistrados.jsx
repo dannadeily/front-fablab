@@ -8,8 +8,8 @@ const LaboratoriosRegistrados = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await conexionAxios.get("/laboratory");
-        setLaboratorio(response.data.message);
+        const response = await conexionAxios.get("/laboratory/enable");
+        setLaboratorio(response.data);
       } catch (error) {
         console.error(error);
       }

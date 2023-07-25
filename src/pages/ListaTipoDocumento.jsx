@@ -21,7 +21,7 @@ const ListaTipoDocumento = () => {
 
   const handleToggleEstado = async (id) => {
     try {
-      const res = await conexionAxios.put(`/laboratory/changeState/${id}`);
+      const res = await conexionAxios.put(`/documentsTypes/changeState/${id}`);
   
       if (res.status === 200) {
         setLaboratorio((prevState) =>
