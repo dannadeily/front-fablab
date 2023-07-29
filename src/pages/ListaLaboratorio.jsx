@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import conexionAxios from "../axios/Axios";
 import ruta from "../config/rutaBackend";
 
-
 const ListaLaboratorio = () => {
   const [laboratorio, setLaboratorio] = useState([]);
 
@@ -25,7 +24,7 @@ const ListaLaboratorio = () => {
   const handleToggleEstado = async (id) => {
     try {
       const res = await conexionAxios.put(`/laboratory/changeState/${id}`);
-  
+
       if (res.status === 200) {
         setLaboratorio((prevState) =>
           prevState.map((laboratorioItem) =>
@@ -37,7 +36,9 @@ const ListaLaboratorio = () => {
 
         // Actualizar el laboratorio seleccionado localmente
         setSelectedLaboratorio((prevSelected) =>
-          prevSelected?.id === id ? { ...prevSelected, isEnabled: !prevSelected.isEnabled } : prevSelected
+          prevSelected?.id === id
+            ? { ...prevSelected, isEnabled: !prevSelected.isEnabled }
+            : prevSelected
         );
       }
     } catch (error) {
@@ -84,17 +85,26 @@ const ListaLaboratorio = () => {
                 <div className="flex justify-between ">
                   <button
                     className={`ml-2 text-white rounded-lg px-3 py-1 text-sm ${
-                      (selectedLaboratorio && selectedLaboratorio.id === laboratorioItem.id) ?
-                        (selectedLaboratorio.isEnabled ? "bg-green-500" : "bg-red-500") :
-                        (laboratorioItem.isEnabled ? "bg-green-500" : "bg-red-500")
+                      selectedLaboratorio &&
+                      selectedLaboratorio.id === laboratorioItem.id
+                        ? selectedLaboratorio.isEnabled
+                          ? "bg-green-500"
+                          : "bg-red-500"
+                        : laboratorioItem.isEnabled
+                        ? "bg-green-500"
+                        : "bg-red-500"
                     }`}
                     onClick={() => handleToggleEstado(laboratorioItem.id)}
                   >
                     {/* Actualizar el texto del botón según el estado del laboratorio seleccionado */}
-                    {(selectedLaboratorio && selectedLaboratorio.id === laboratorioItem.id) ?
-                      (selectedLaboratorio.isEnabled ? "Habilitado" : "Deshabilitado") :
-                      (laboratorioItem.isEnabled ? "Habilitado" : "Deshabilitado")
-                    }
+                    {selectedLaboratorio &&
+                    selectedLaboratorio.id === laboratorioItem.id
+                      ? selectedLaboratorio.isEnabled
+                        ? "Habilitado"
+                        : "Deshabilitado"
+                      : laboratorioItem.isEnabled
+                      ? "Habilitado"
+                      : "Deshabilitado"}
                   </button>
                 </div>
               </div>

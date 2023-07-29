@@ -24,7 +24,7 @@ const ListaTipoDocumento = () => {
       const res = await conexionAxios.put(`/documentsTypes/changeState/${id}`);
   
       if (res.status === 200) {
-        setLaboratorio((prevState) =>
+        setName((prevState) =>
           prevState.map((documentItem) =>
             documentItem.id === id
               ? { ...documentItem, isEnabled: !documentItem.isEnabled }

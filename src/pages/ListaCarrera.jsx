@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import conexionAxios from "../axios/Axios";
 
+
 const ListaCarrera = () => {
   const [carrera, setCarrera] = useState([]);
+
    // Agregar estado local para el laboratorio seleccionado
    const [selectedLaboratorio, setSelectedLaboratorio] = useState(null);
 
@@ -24,7 +26,7 @@ const ListaCarrera = () => {
       const res = await conexionAxios.put(`/academyProgram/changeState/${id}`);
   
       if (res.status === 200) {
-        setLaboratorio((prevState) =>
+        setCarrera((prevState) =>
           prevState.map((carreras) =>
             carreras.id === id
               ? { ...carreras, isEnabled: !carreras.isEnabled }

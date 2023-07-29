@@ -24,7 +24,7 @@ const ListaTipoPoblacion = () => {
       const res = await conexionAxios.put(`/populationTypes/changeState/${id}`);
 
       if (res.status === 200) {
-        setLaboratorio((prevState) =>
+        setName((prevState) =>
           prevState.map((poblacionItem) =>
             poblacionItem.id === id
               ? { ...poblacionItem, isEnabled: !poblacionItem.isEnabled }

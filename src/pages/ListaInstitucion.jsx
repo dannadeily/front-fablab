@@ -22,7 +22,7 @@ const ListaInstitucion = () => {
       const res = await conexionAxios.put(`/institution/changeState/${id}`);
   
       if (res.status === 200) {
-        setLaboratorio((prevState) =>
+        setName((prevState) =>
           prevState.map((institucionItem) =>
             institucionItem.id === id
               ? { ...institucionItem, isEnabled: !institucionItem.isEnabled }

@@ -3,8 +3,8 @@ import conexionAxios from "../axios/Axios";
 
 const ListaCargo = () => {
   const [name, setName] = useState([]);
-   // Agregar estado local para el laboratorio seleccionado
-   const [selectedLaboratorio, setSelectedLaboratorio] = useState(null);
+  // Agregar estado local para el laboratorio seleccionado
+  const [selectedLaboratorio, setSelectedLaboratorio] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,19 +21,19 @@ const ListaCargo = () => {
   const handleToggleEstado = async (id) => {
     try {
       const res = await conexionAxios.put(`/role/changeState/${id}`);
-  
+
       if (res.status === 200) {
-        setLaboratorio((prevState) =>
+        setName((prevState) =>
           prevState.map((role) =>
-            role.id === id
-              ? { ...role, isEnabled: !role.isEnabled }
-              : role
+            role.id === id ? { ...role, isEnabled: !role.isEnabled } : role
           )
         );
 
         // Actualizar el laboratorio seleccionado localmente
         setSelectedLaboratorio((prevSelected) =>
-          prevSelected?.id === id ? { ...prevSelected, isEnabled: !prevSelected.isEnabled } : prevSelected
+          prevSelected?.id === id
+            ? { ...prevSelected, isEnabled: !prevSelected.isEnabled }
+            : prevSelected
         );
       }
     } catch (error) {
@@ -61,15 +61,12 @@ const ListaCargo = () => {
             >
               <p className="font-bold mb-3 text-gray-700 uppercase">
                 Nombre:{" "}
-                <span className="font-normal normal-case">
-                  {role.name}
-                </span>
+                <span className="font-normal normal-case">{role.name}</span>
               </p>
               <div className="flex justify-between ">
                 <button
                   className={`ml-2 text-white rounded-lg px-3 py-1 text-sm ${
-                    selectedLaboratorio &&
-                    selectedLaboratorio.id === role.id
+                    selectedLaboratorio && selectedLaboratorio.id === role.id
                       ? selectedLaboratorio.isEnabled
                         ? "bg-green-500"
                         : "bg-red-500"
@@ -80,8 +77,7 @@ const ListaCargo = () => {
                   onClick={() => handleToggleEstado(role.id)}
                 >
                   {/* Actualizar el texto del botón según el estado del laboratorio seleccionado */}
-                  {selectedLaboratorio &&
-                  selectedLaboratorio.id === role.id
+                  {selectedLaboratorio && selectedLaboratorio.id === role.id
                     ? selectedLaboratorio.isEnabled
                       ? "Habilitado"
                       : "Deshabilitado"
