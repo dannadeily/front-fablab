@@ -21,6 +21,7 @@ import TipoDocumento from "./pages/Tipodocumento";
 import TipoPoblacion from "./pages/TipoPoblacion";
 import Institucion from "./pages/Institucion";
 import Cargo from "./pages/Cargo";
+import InscribirProyecto from "./pages/InscribirProyecto";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -41,7 +42,9 @@ function App() {
             path="laboratoriosregistrados"
             element={<LaboratoriosRegistrados />}
           />
+          <Route path="inscribirproyecto" element={<InscribirProyecto />} />
         </Route>
+
         <Route
           path="/administrador"
           element={<RutaProtegida isAuthenticated={isAuthenticated} />}
@@ -49,7 +52,7 @@ function App() {
           <Route index element={<Teclado />} />
           <Route path="carrera" element={<Carrera />} />
           <Route path="laboratorio" element={<Laboratorio />} />
-          <Route path="cargo" element={<Cargo/> } />
+          <Route path="cargo" element={<Cargo />} />
           <Route path="tipodocumento" element={<TipoDocumento />} />
           <Route path="tipopoblacion" element={<TipoPoblacion />} />
           <Route path="institucion" element={<Institucion />} />

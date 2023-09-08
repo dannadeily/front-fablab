@@ -2,15 +2,13 @@ import React, { useState, useEffect } from "react";
 import conexionAxios from "../axios/Axios";
 
 const ListaTipoPoblacion = () => {
-  const [name, setName] = useState([]);
-  // Agregar estado local para el laboratorio seleccionado
-  const [selectedLaboratorio, setSelectedLaboratorio] = useState(null);
+  const [poblacion, setPoblacion] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await conexionAxios.get("/populationTypes");
-        setName(response.data);
+        setPoblacion(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -24,19 +22,12 @@ const ListaTipoPoblacion = () => {
       const res = await conexionAxios.put(`/populationTypes/changeState/${id}`);
 
       if (res.status === 200) {
-        setName((prevState) =>
+        setPoblacion((prevState) =>
           prevState.map((poblacionItem) =>
             poblacionItem.id === id
-              ? { ...poblacionItem, isEnabled: !poblacionItem.isEnabled }
+              ? { ...poblacionItem, status: !poblacionItem.status }
               : poblacionItem
           )
-        );
-
-        // Actualizar el laboratorio seleccionado localmente
-        setSelectedLaboratorio((prevSelected) =>
-          prevSelected?.id === id
-            ? { ...prevSelected, isEnabled: !prevSelected.isEnabled }
-            : prevSelected
         );
       }
     } catch (error) {
@@ -45,7 +36,7 @@ const ListaTipoPoblacion = () => {
   };
   return (
     <div className="md:w-1/2 lg:w-3/5 md:h-screen overflow-y-scroll">
-      {name && name.length ? (
+      {poblacion && poblacion.length ? (
         <>
           <h2 className="font-black text-2xl text-center">
             listado de tipos de población
@@ -58,7 +49,7 @@ const ListaTipoPoblacion = () => {
             </span>
           </p>
 
-          {name.map((poblacionItem) => (
+          {poblacion.map((poblacionItem) => (
             <div
               key={poblacionItem.id}
               className="mx-5 my-10 bg-white shadow-md px-5 py-10 rounded-xl"
@@ -72,26 +63,11 @@ const ListaTipoPoblacion = () => {
               <div className="flex justify-between ">
                 <button
                   className={`ml-2 text-white rounded-lg px-3 py-1 text-sm ${
-                    selectedLaboratorio &&
-                    selectedLaboratorio.id === poblacionItem.id
-                      ? selectedLaboratorio.isEnabled
-                        ? "bg-green-500"
-                        : "bg-red-500"
-                      : poblacionItem.isEnabled
-                      ? "bg-green-500"
-                      : "bg-red-500"
+                    poblacionItem.status ? "bg-green-500" : "bg-red-500"
                   }`}
                   onClick={() => handleToggleEstado(poblacionItem.id)}
                 >
-                  {/* Actualizar el texto del botón según el estado del laboratorio seleccionado */}
-                  {selectedLaboratorio &&
-                  selectedLaboratorio.id === poblacionItem.id
-                    ? selectedLaboratorio.isEnabled
-                      ? "Habilitado"
-                      : "Deshabilitado"
-                    : poblacionItem.isEnabled
-                    ? "Habilitado"
-                    : "Deshabilitado"}
+                  {poblacionItem.status ? "Habilitado" : "Deshabilitado"}
                 </button>
               </div>
             </div>

@@ -1,42 +1,33 @@
 import React, { useState, useEffect } from "react";
 import conexionAxios from "../axios/Axios";
 
-
 const ListaCarrera = () => {
   const [carrera, setCarrera] = useState([]);
 
-   // Agregar estado local para el laboratorio seleccionado
-   const [selectedLaboratorio, setSelectedLaboratorio] = useState(null);
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await conexionAxios.get("/academyProgram");
-        setCarrera(response.data.message);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await conexionAxios.get("/academyProgram");
+      setCarrera(response.data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleToggleEstado = async (id) => {
     try {
       const res = await conexionAxios.put(`/academyProgram/changeState/${id}`);
-  
+
       if (res.status === 200) {
         setCarrera((prevState) =>
           prevState.map((carreras) =>
             carreras.id === id
-              ? { ...carreras, isEnabled: !carreras.isEnabled }
+              ? { ...carreras, status: !carreras.status }
               : carreras
           )
-        );
-
-        // Actualizar el laboratorio seleccionado localmente
-        setSelectedLaboratorio((prevSelected) =>
-          prevSelected?.id === id ? { ...prevSelected, isEnabled: !prevSelected.isEnabled } : prevSelected
         );
       }
     } catch (error) {
@@ -72,26 +63,11 @@ const ListaCarrera = () => {
               <div className="flex justify-between ">
                 <button
                   className={`ml-2 text-white rounded-lg px-3 py-1 text-sm ${
-                    selectedLaboratorio &&
-                    selectedLaboratorio.id === carreras.id
-                      ? selectedLaboratorio.isEnabled
-                        ? "bg-green-500"
-                        : "bg-red-500"
-                      : carreras.isEnabled
-                      ? "bg-green-500"
-                      : "bg-red-500"
+                    carreras.status ? "bg-green-500" : "bg-red-500"
                   }`}
                   onClick={() => handleToggleEstado(carreras.id)}
                 >
-                  {/* Actualizar el texto del botón según el estado del laboratorio seleccionado */}
-                  {selectedLaboratorio &&
-                  selectedLaboratorio.id === carreras.id
-                    ? selectedLaboratorio.isEnabled
-                      ? "Habilitado"
-                      : "Deshabilitado"
-                    : carreras.isEnabled
-                    ? "Habilitado"
-                    : "Deshabilitado"}
+                  {carreras.status ? "Habilitado" : "Deshabilitado"}
                 </button>
               </div>
             </div>

@@ -28,6 +28,11 @@ const Header = () => {
               <span className="text-white">Aulas</span>
             </button>
           </Link>
+          <Link to="inscribirproyecto">
+            <button className="flex items-center px-4 py-2 rounded ml-auto">
+              <span className="text-white">Inscribir proyecto</span>
+            </button>
+          </Link>
 
           <div className="ml-auto">
             <Link to="registrarestudiante">
