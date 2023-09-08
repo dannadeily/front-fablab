@@ -42,10 +42,12 @@ const ListaCarrera = () => {
             listado de las carreras
           </h2>
 
-          <p className="text-xl mt-5 mb-10 text-center">
-            Administra las {""}
-            <span className="text-indigo-600 font-bold text-xl ">carreras</span>
-          </p>
+                    <p className="text-xl mt-5 mb-10 text-center">
+                        Administra las {""}
+                        <span className="text-indigo-600 font-bold text-xl ">
+                            carreras
+                        </span>
+                    </p>
 
           {carrera.map((carreras) => (
             <div

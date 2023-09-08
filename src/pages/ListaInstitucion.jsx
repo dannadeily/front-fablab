@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import conexionAxios from "../axios/Axios";
 
+
 const ListaInstitucion = () => {
   const [institucion, setInstitucion] = useState([]);
 

@@ -14,12 +14,14 @@ const ListaTipoPoblacion = () => {
       }
     };
 
-    fetchData();
-  }, []);
+        fetchData();
+    }, []);
 
-  const handleToggleEstado = async (id) => {
-    try {
-      const res = await conexionAxios.put(`/populationTypes/changeState/${id}`);
+    const handleToggleEstado = async (id) => {
+        try {
+            const res = await conexionAxios.put(
+                `/populationTypes/changeState/${id}`
+            );
 
       if (res.status === 200) {
         setPoblacion((prevState) =>
@@ -42,12 +44,12 @@ const ListaTipoPoblacion = () => {
             listado de tipos de población
           </h2>
 
-          <p className="text-xl mt-5 mb-10 text-center">
-            Administra los {""}
-            <span className="text-indigo-600 font-bold text-xl ">
-              tipos de población
-            </span>
-          </p>
+                    <p className="text-xl mt-5 mb-10 text-center">
+                        Administra los {""}
+                        <span className="text-indigo-600 font-bold text-xl ">
+                            tipos de población
+                        </span>
+                    </p>
 
           {poblacion.map((poblacionItem) => (
             <div

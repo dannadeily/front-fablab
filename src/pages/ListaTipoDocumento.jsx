@@ -14,8 +14,8 @@ const ListaTipoDocumento = () => {
       }
     };
 
-    fetchData();
-  }, []);
+        fetchData();
+    }, []);
 
   const handleToggleEstado = async (id) => {
     try {
@@ -43,12 +43,12 @@ const ListaTipoDocumento = () => {
             listado de tipos de documentos
           </h2>
 
-          <p className="text-xl mt-5 mb-10 text-center">
-            Administra los {""}
-            <span className="text-indigo-600 font-bold text-xl ">
-              tipos de documentos
-            </span>
-          </p>
+                    <p className="text-xl mt-5 mb-10 text-center">
+                        Administra los {""}
+                        <span className="text-indigo-600 font-bold text-xl ">
+                            tipos de documentos
+                        </span>
+                    </p>
 
           {documento.map((documentItem) => (
             <div

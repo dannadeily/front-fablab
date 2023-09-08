@@ -5,22 +5,30 @@ import ruta from "../config/rutaBackend";
 const ListaLaboratorio = () => {
   const [laboratorio, setLaboratorio] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await conexionAxios.get("/laboratory");
-        setLaboratorio(response.data.message);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await conexionAxios.get("/laboratory");
+                const laboratoriosWithIsEnabled = response.data.message.map(
+                    (laboratorioItem) => ({
+                        ...laboratorioItem,
+                        isEnabled: laboratorioItem.status,
+                    })
+                );
+                setLaboratorio(laboratoriosWithIsEnabled);
+            } catch (error) {
+                console.error(error);
+            }
+        };
 
-    fetchData();
-  }, []);
+        fetchData();
+    }, []);
 
-  const handleToggleEstado = async (id) => {
-    try {
-      const res = await conexionAxios.put(`/laboratory/changeState/${id}`);
+    const handleToggleEstado = async (id) => {
+        try {
+            const res = await conexionAxios.put(
+                `/laboratory/changeState/${id}`
+            );
 
       if (res.status === 200) {
         setLaboratorio((prevState) =>
@@ -36,16 +44,18 @@ const ListaLaboratorio = () => {
     }
   };
 
-  return (
-    <div className="md:w-1/2 lg:w-3/5 md:h-screen overflow-y-scroll">
-      {laboratorio && laboratorio.length ? (
-        <>
-          <h2 className="font-black text-2xl text-center ">Aulas</h2>
+    return (
+        <div className="md:w-1/2 lg:w-3/5 md:h-screen overflow-y-scroll">
+            {laboratorio && laboratorio.length ? (
+                <>
+                    <h2 className="font-black text-2xl text-center ">Aulas</h2>
 
-          <p className="text-xl mt-5 mb-10 text-center">
-            Administra las {""}
-            <span className="text-indigo-600 font-bold text-xl ">Aulas</span>
-          </p>
+                    <p className="text-xl mt-5 mb-10 text-center">
+                        Administra las {""}
+                        <span className="text-indigo-600 font-bold text-xl ">
+                            Aulas
+                        </span>
+                    </p>
 
           {laboratorio.map((laboratorioItem) => (
             <div
