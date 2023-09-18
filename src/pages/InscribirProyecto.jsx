@@ -5,15 +5,19 @@ import conexionAxios from "../axios/Axios";
 
 const InscribirProyecto = () => {
   const [name, setName] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [materials, setMaterials] = useState("");
+  //alertas
   const [alertError, setAlertError] = useState({ error: false, message: "" });
   const [alertSucces, setAlertSucces] = useState({
     error: false,
     message: "",
   });
-  const [participants, setParticipants] = useState([]);
-  const [newParticipant, setNewParticipant] = useState({
+  //datos del participante
+  const [members, setMembers] = useState([]);
+  const [newMembers, setNewMembers] = useState({
     name: "",
+    lastName: "",
+    document: "",
     code: "",
     email: "",
   });
@@ -21,50 +25,52 @@ const InscribirProyecto = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewParticipant({ ...newParticipant, [name]: value });
+    setNewMembers({ ...newMembers, [name]: value });
   };
 
   const handleAddParticipant = () => {
-    if (newParticipant.name && newParticipant.code && newParticipant.email) {
+    if (newMembers.name && newMembers.code && newMembers.email) {
       if (editingIndex !== null) {
         // Si estamos editando, actualizamos el participante existente
-        const updatedParticipants = [...participants];
-        updatedParticipants[editingIndex] = newParticipant;
-        setParticipants(updatedParticipants);
+        const updatedParticipants = [...members];
+        updatedParticipants[editingIndex] = newMembers;
+        setMembers(updatedParticipants);
         setEditingIndex(null);
       } else {
         // Si no estamos editando, agregamos un nuevo participante
-        setParticipants([...participants, newParticipant]);
+        setMembers([...members, newMembers]);
       }
       // Restablecemos el formulario
-      setNewParticipant({ name: "", code: "", email: "" });
+      setNewMembers({
+        name: "",
+        lastName: "",
+        document: "",
+        code: "",
+        email: "",
+      });
     }
   };
 
   const handleEditParticipant = (index) => {
     // Cuando se hace clic en "Editar" en un participante, llenamos el formulario con sus datos
-    const participantToEdit = participants[index];
-    setNewParticipant(participantToEdit);
+    const participantToEdit = members[index];
+    setNewMembers(participantToEdit);
     setEditingIndex(index);
   };
 
   const handleDeleteParticipant = (index) => {
     // Eliminar un participante
-    const updatedParticipants = [...participants];
+    const updatedParticipants = [...members];
     updatedParticipants.splice(index, 1);
-    setParticipants(updatedParticipants);
+    setMembers(updatedParticipants);
   };
+
+  //formulario de envio de datos
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // if (
-    //   name.trim() ||
-    //   lastname.trim() ||
-    //   email.trim() === "" ||
-    //   document.trim() ||
-    //   idAcademyProgram.trim()
-    // ) {
+    // if (name.trim === "" || members.trim === "" || materials.trim === "") {
     //   setAlertError({
     //     error: true,
     //     message: "Todos los campos son obligatorios",
@@ -73,8 +79,10 @@ const InscribirProyecto = () => {
     // }
 
     try {
-      const res = await conexionAxios.post("/register", {
+      const res = await conexionAxios.post("/proyects", {
         name,
+        members,
+        materials,
       });
 
       if (res.status === 201) {
@@ -82,6 +90,8 @@ const InscribirProyecto = () => {
         setTimeout(() => setAlertSucces({ error: false, message: "" }), 10000);
         // Reiniciar los valores de los campos
         setName("");
+        setMembers("");
+        setMaterials("");
       }
     } catch (error) {
       // Manejar el error de la solicitud
@@ -135,15 +145,19 @@ const InscribirProyecto = () => {
                   <thead>
                     <tr>
                       <th className="border">Nombre</th>
+                      <th className="border">Apellido</th>
+                      <th className="border">Documento</th>
                       <th className="border">Código</th>
                       <th className="border">Correo</th>
                       <th className="border">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {participants.map((participant, index) => (
+                    {members.map((participant, index) => (
                       <tr key={index}>
                         <td className="border">{participant.name}</td>
+                        <td className="border">{participant.lastName}</td>
+                        <td className="border">{participant.document}</td>
                         <td className="border">{participant.code}</td>
                         <td className="border">{participant.email}</td>
                         <td className="border">
@@ -172,30 +186,46 @@ const InscribirProyecto = () => {
                     type="text"
                     name="name"
                     placeholder="Nombre"
-                    value={newParticipant.name}
+                    value={newMembers.name}
                     onChange={handleInputChange}
-                    className="border p-2"
+                    className="border p-2 m-2"
                   />
                   <input
                     type="text"
+                    name="lastName"
+                    placeholder="Apellido"
+                    value={newMembers.lastName}
+                    onChange={handleInputChange}
+                    className="border p-2 m-2"
+                  />
+                  <input
+                    type="number"
+                    name="document"
+                    placeholder="Documento"
+                    value={newMembers.document}
+                    onChange={handleInputChange}
+                    className="border p-2 m-2"
+                  />
+                  <input
+                    type="number"
                     name="code"
                     placeholder="Código"
-                    value={newParticipant.code}
+                    value={newMembers.code}
                     onChange={handleInputChange}
-                    className="border p-2 ml-2"
+                    className="border p-2 m-2"
                   />
                   <input
                     type="email"
                     name="email"
                     placeholder="Correo"
-                    value={newParticipant.email}
+                    value={newMembers.email}
                     onChange={handleInputChange}
-                    className="border p-2 ml-2"
+                    className="border p-2 m-2"
                   />
                   <button
                     type="button"
                     onClick={handleAddParticipant}
-                    className="bg-blue-500 text-white p-2 ml-2"
+                    className="bg-blue-500 text-white p-2 ml-2 rounded"
                   >
                     {editingIndex !== null
                       ? "Guardar Cambios"
@@ -218,6 +248,8 @@ const InscribirProyecto = () => {
                   type="text"
                   placeholder="escriba los materiales que necesita en el proyecto"
                   className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+                  value={materials}
+                  onChange={(e) => setMaterials(e.target.value)}
                 />
               </div>
             </div>
