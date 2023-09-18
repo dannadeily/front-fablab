@@ -181,12 +181,17 @@ const HeaderAdministrador = () => {
                         onClick={handleMobileMenuClose}
                       >
                         <li className="block px-4 py-2  text-black hover:bg-blue-300 hover:text-black">
-                          <button type="button">Reporte por laboratorio</button>
+                          <button type="button">Reporte por aulas</button>
                         </li>
                       </Link>
                       <Link to="reportecarrera" onClick={handleMobileMenuClose}>
                         <li className="block px-4 py-2  text-black hover:bg-blue-300 hover:text-black">
                           <button type="button">Reporte por carrera</button>
+                        </li>
+                      </Link>
+                      <Link to="reporteproyecto" onClick={handleMobileMenuClose}>
+                        <li className="block px-4 py-2  text-black hover:bg-blue-300 hover:text-black">
+                          <button type="button">Reporte por proyectos</button>
                         </li>
                       </Link>
                       <Link to="reporte" onClick={handleMobileMenuClose}>

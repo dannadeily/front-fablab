@@ -22,6 +22,7 @@ import TipoPoblacion from "./pages/TipoPoblacion";
 import Institucion from "./pages/Institucion";
 import Cargo from "./pages/Cargo";
 import InscribirProyecto from "./pages/InscribirProyecto";
+import ReporteProyecto from "./pages/ReporteProyectos";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -58,6 +59,7 @@ function App() {
           <Route path="institucion" element={<Institucion />} />
           <Route path="reporte" element={<Reporte />} />
           <Route path="reportecarrera" element={<ReporteCarrera />} />
+          <Route path="reporteproyecto" element={<ReporteProyecto />} />
           <Route path="reportelaboratorio" element={<ReporteLaboratorio />} />
         </Route>
       </Routes>
